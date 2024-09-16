@@ -17,7 +17,7 @@ dotenv.config({})
 
 const PORT = process.env.PORT || 3000
 
-const _dirname = path.resolve();
+// const _dirname = path.resolve();
 
 
 
@@ -38,10 +38,10 @@ app.use('/api/v1/user',userRoute);
 app.use('/api/v1/post',postRoute);
 app.use('/api/v1/message',messageRoute);
 
-app.use(express.static(path.join(_dirname, '/Frontend/dist')))
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(_dirname, "Frontend" ,"dist" , "index.html"));
-})
+// app.use(express.static(path.join(_dirname, '/Frontend/dist')))
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(_dirname, "Frontend" ,"dist" , "index.html"));
+// })
 
 
 server.listen(PORT, () => {
