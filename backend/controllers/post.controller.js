@@ -4,6 +4,7 @@ import { Post } from '../models/post.model.js';
 import { User } from '../models/user.model.js';
 import { Comment } from '../models/comment.model.js';
 import { getReceiverSocketId } from '../Socket/socket.js';
+import { io } from '../Socket/socket.js';
 
 export const addNewPost = async (req, res) => {
     try {
@@ -124,8 +125,8 @@ export const likePost = async (req, res) => {
                 message:"Your post was liked "
 
             }
-            // const postOwnerSocketId = getReceiverSocketId(postOwnerId);
-            // io.to(postOwnerSocketId).emit('notification', notification);
+            const postOwnerSocketId = getReceiverSocketId(postOwnerId);
+            io.to(postOwnerSocketId).emit('notification', notification);
         }
 
 
@@ -166,8 +167,8 @@ export const dislikePost = async (req, res) => {
                 message:"Your post was disli "
 
             }
-            // const postOwnerSocketId = getReceiverSocketId(postOwnerId);
-            // io.to(postOwnerSocketId).emit('notification', notification);
+            const postOwnerSocketId = getReceiverSocketId(postOwnerId);
+            io.to(postOwnerSocketId).emit('notification', notification);
         }
 
 
@@ -274,7 +275,7 @@ export const deletePost = async (req, res) => {
     }
 };
 
-export const bookMarkPost = async (res, req) => {
+export const bookMarkPost = async (req, res) => {
     try {
         const postId = req.params.id;
         const authorId = req.id;
@@ -282,11 +283,12 @@ export const bookMarkPost = async (res, req) => {
 
         if (!post) return res.status(404).json({ message: 'Post not found', success: false });
         const user = await User.findById(authorId);
+        console.log(user);
         if (user.bookmarks.includes(post._id)) {
             //already bookmarked
             await user.updateOne({ $pull: { bookmarks: post._id } })
             await user.save();
-            return res.status(200).json({ message: 'Post unbookmarked', success: true });
+            return res.status(200).json({type:'unsaved', message:'Post removed from bookmark', success:true});
 
         } else {
             //bookmark karna padega

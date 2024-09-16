@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
+import { useSelector } from 'react-redux'
 
 
 
@@ -17,6 +18,7 @@ const Signup = () => {
     });
     const [loading, setloading] = useState(false)
     const navigate = useNavigate();
+    const { user } = useSelector(store => store.auth)
     const handleInputChange = (e) => {
         setinput({ ...input, [e.target.name]: e.target.value })
     }
@@ -49,12 +51,17 @@ const Signup = () => {
             setloading(false);
         }
     }
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [])
     return (
         <div>
             <div className='flex items-center w-screen h-screen justify-center '>
                 <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
-                    <div className='my-4 text-center'>
-                        <h1 className='font-semibold text-[25px]'>Logo</h1>
+                    <div className='my-4 flex flex-col items-center justify-center'>
+                        <img src="logo.png" className='w-32' alt="" />
                         <p>Signup to see photos</p>
                     </div>
                     <div className='flex flex-col '>
@@ -78,7 +85,7 @@ const Signup = () => {
                             <button type="submit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 w-full ">SignUp</button>
                         )
                     }
-                   
+
                     <span>Already Have an account ? <Link to='/login' className='text-blue-600'>Login</Link></span>
 
 

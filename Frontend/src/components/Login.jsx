@@ -5,8 +5,9 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { Loader2 } from 'lucide-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setAuthUser } from '@/redux/authSlice'
+import { useEffect } from 'react'
 
 
 
@@ -18,6 +19,7 @@ const Login = () => {
     const [loading, setloading] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {user } = useSelector(store=>store.auth)
 
 
     const handleInputChange = (e) => {
@@ -53,12 +55,17 @@ const Login = () => {
             setloading(false);
         }
     }
+    useEffect(()=>{
+        if (user){
+            navigate('/');
+        }
+    },[])
     return (
         <div>
             <div className='flex items-center w-screen h-screen justify-center '>
                 <form onSubmit={signupHandler} className='shadow-lg flex flex-col gap-5 p-8'>
-                    <div className='my-4 text-center'>
-                        <h1 className='font-semibold text-[25px]'>Logo</h1>
+                    <div className='my-1 text-center flex flex-col items-center'>
+                        <img src="logo.png" className='w-32' alt="" />
                         <p>Login</p>
                     </div>
 

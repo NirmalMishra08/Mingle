@@ -8,18 +8,21 @@ import { MessageCircle } from 'lucide-react';
 import Messages from './Messages';
 import { useState } from 'react';
 import axios from 'axios';
-import { setMessages } from '@/redux/chatSlice';
+import { setMessages ,addMessage} from '@/redux/chatSlice';
 import { useEffect } from'react';
 
 const Chatpage = () => {
   const [textMessage,setTextMessage]= useState("")
-  const { user, suggestedUser, selectedUser } = useSelector((store) => store.auth);
+  const { user, suggestedUser, selectedUser } = useSelector(store => store.auth);
   const {onlineUsers,messages} = useSelector(store=>store.chat)
  
  
   const dispatch = useDispatch()
 
   const sendMessageHandler = async(receiverId)=>{
+    console.log("sendMessageHandler",receiverId)
+
+
     try {
       const res = await axios.post(`http://localhost:8000/api/v1/message/send/${receiverId}`,{textMessage},{
          headers:{
@@ -27,10 +30,14 @@ const Chatpage = () => {
          },
          withCredentials: true,
       });
+      console.log(res);
       if(res.data.success){
-        console.log(res.data)
-       dispatch(setMessages([...messages,res.data.newMessage]));
-       setTextMessage("")
+        console.log("Received new message:", res.data.data);
+
+        const updatedMessages = Array.isArray(messages) ? [...messages, res.data.data] : [res.data.data];
+
+        dispatch(setMessages(updatedMessages));
+        setTextMessage("");
       }
     } catch (error) {
       console.log(error)
@@ -38,8 +45,7 @@ const Chatpage = () => {
   }
 useEffect(() => {
   
-
-  return () => {
+return () => {
     dispatch(setSelectedUser(null))
   }
 }, [dispatch])
@@ -52,17 +58,17 @@ useEffect(() => {
         <div className='overflow-y-auto h-[80vh]'>
 
           {
-            suggestedUser.map((suggestedUser) => {
-              const isOnline = onlineUsers.includes(suggestedUser?._id);
+            suggestedUser.map((suggestedUsers) => {
+              const isOnline = onlineUsers.includes(suggestedUsers._id);
               return (
-                <div onClick={() => dispatch(setSelectedUser(suggestedUser))} className='flex items-center gap-3 p-3 hover:bg-gray-50  cursor-pointer'>
+                <div  key={suggestedUsers._id}  onClick={() => dispatch(setSelectedUser(suggestedUsers))} className='flex items-center gap-3 p-3 hover:bg-gray-50  cursor-pointer'>
                   <Avatar className='w-14 h-14'>
-                    <AvatarImage src={suggestedUser?.profilePicture} alt='post_image' />
+                    <AvatarImage src={suggestedUsers?.profilePicture} alt='post_image' />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
 
                   <div className='flex flex-col'>
-                    <span className='font-medium'>{suggestedUser?.username}</span>
+                    <span className='font-medium'>{suggestedUsers?.username}</span>
                     <span className={`text-sm ${isOnline ? 'text-green-500 ' : 'text-red-600'}`}>{isOnline ? 'online' : 'offline'}</span>
                   </div>
                 </div>

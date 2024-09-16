@@ -3,6 +3,7 @@ import authSlice from "./authSlice.js";
 import postSlice from './postslice.js';
 import socketSlice from "./socketSlice.js"
 import chatSlice from "./chatSlice.js";
+import rtnSlice from "./RTNSlice.js";
 
 
 import { 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     post:postSlice,
     socketio:socketSlice,
     chat:chatSlice,
+    realTimeNotification:rtnSlice
     
 })
 
@@ -39,6 +41,10 @@ const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                ignoredActions: ['socketio/setSocket', 'auth/setSelectedUser'],
+                ignoredPaths: ['socketio.socket'],
+                ignoredActions: ['persist/PERSIST', 'socketio/setSocket'],
+                
             },
         }),
 });

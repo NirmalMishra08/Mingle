@@ -14,7 +14,7 @@ const useGetallPost = () => {
                     withCredentials: true
                 })
                 if (res.data.success) {
-                    console.log(res.data)
+                    
                     dispatch(setPosts(res.data.posts))
                 }
                 
