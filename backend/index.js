@@ -28,8 +28,13 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 app.use(cookieParser())
 app.use(urlencoded({ extended: true }))
+const corsOptions = {
+    origin: 'https://mingle-frontend-mu.vercel.app',
 
-app.use(cors());
+    
+    credentials: true
+}
+app.use(cors(corsOptions));
 //yaha par apni api aayengi 
 app.use('/api/v1/user',userRoute);
 app.use('/api/v1/post',postRoute);
