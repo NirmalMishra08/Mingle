@@ -40,7 +40,7 @@ const CommentDialog = ({ open, setOpen }) => {
     }
 const sentMessageHandler = async () => {
     try {
-        const res = await axios.post(`http://localhost:8000/api/v1/post/${selectedPost._id}/comment`,
+        const res = await axios.post(`https://mingle-3.onrender.com/api/v1/post/${selectedPost._id}/comment`,
             { text }, {
             headers: {
                 'Content-Type': 'application/json'
