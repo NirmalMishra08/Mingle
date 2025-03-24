@@ -89,6 +89,7 @@ return () => {
                   {selectedUser?.username}
                 </span>
               </div>
+            
             </div>
             <Messages selectedUser={selectedUser}/>
             <div className='flex items-center p-4 border-t border-t-gray-300'>
