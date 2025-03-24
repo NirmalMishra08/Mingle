@@ -22,12 +22,13 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
+    whitelist: ['auth', 'post', 'chat', 'realTimeNotification'] 
 }
 
 const rootReducer = combineReducers({
     auth:authSlice,
     post:postSlice,
-    socketio:socketSlice,
+    
     chat:chatSlice,
     realTimeNotification:rtnSlice
     
@@ -41,10 +42,7 @@ const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-                ignoredActions: ['socketio/setSocket', 'auth/setSelectedUser'],
                 ignoredPaths: ['socketio.socket'],
-                ignoredActions: ['persist/PERSIST', 'socketio/setSocket'],
-                
             },
         }),
 });
