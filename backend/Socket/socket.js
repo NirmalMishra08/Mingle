@@ -8,7 +8,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: 'https://mingle-lac.vercel.app/',
+        origin: 'https://mingle-lac.vercel.app',
         method: ['GET', 'POST']
     }
 
