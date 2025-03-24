@@ -27,14 +27,13 @@ const PORT = process.env.PORT || 3000
 //middleware
 app.use(express.json())
 app.use(cookieParser())
-app.use(urlencoded({ extended: true }))
 const corsOptions = {
-    origin: '*',
-
-    
-    credentials: false
-}
-app.use(cors(corsOptions));
+    origin: 'https://frontend-mh598998i-nirmal-mishras-projects.vercel.app', // ✅ exact frontend domain
+    credentials: true
+  };
+  
+  app.use(cors(corsOptions));
+  
 //yaha par apni api aayengi 
 app.use('/api/v1/user',userRoute);
 app.use('/api/v1/post',postRoute);
