@@ -29,7 +29,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(urlencoded({ extended: true }))
 const corsOptions = {
-    origin: 'https://frontend-gh58yhxmg-nirmal-mishras-projects.vercel.app',
+    origin: '*',
 
     
     credentials: true
