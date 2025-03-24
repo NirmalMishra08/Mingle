@@ -30,7 +30,8 @@ const rootReducer = combineReducers({
     post:postSlice,
     
     chat:chatSlice,
-    realTimeNotification:rtnSlice
+    realTimeNotification:rtnSlice,
+    socketio: socketSlice  
     
 })
 
