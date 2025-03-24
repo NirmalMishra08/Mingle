@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 app.use(cookieParser())
 const corsOptions = {
-    origin: 'https://frontend-mh598998i-nirmal-mishras-projects.vercel.app', // ✅ exact frontend domain
+    origin: 'https://mingle-lac.vercel.app', // ✅ exact frontend domain
     credentials: true
   };
   
