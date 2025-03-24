@@ -32,7 +32,7 @@ const corsOptions = {
     origin: '*',
 
     
-    credentials: true
+    credentials: false
 }
 app.use(cors(corsOptions));
 //yaha par apni api aayengi 
