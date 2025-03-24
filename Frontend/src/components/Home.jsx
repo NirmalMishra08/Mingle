@@ -1,7 +1,7 @@
 import React from 'react'
 import Feed from './Feed'
 import { Outlet } from 'react-router-dom'
-import RightSidebar from './Rightsidebar'
+import RightSidebar from './RightSidebar'
 import useGetallPost from '@/hooks/useGetallPost'
 import useGetallSuggestedUser from '@/hooks/getSuggestedUser'
 
