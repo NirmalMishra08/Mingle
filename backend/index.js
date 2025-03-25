@@ -29,7 +29,7 @@ app.use(express.json())
 app.use(cookieParser())
 const corsOptions = {
     origin: 'https://mingle-lac.vercel.app', // ✅ exact frontend domain
-    credentials: true
+    credentials: false
   };
   
   app.use(cors(corsOptions));
